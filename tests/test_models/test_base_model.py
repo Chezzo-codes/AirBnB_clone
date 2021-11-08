@@ -26,5 +26,5 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(test.total_errors, 0, "fix pep8")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
