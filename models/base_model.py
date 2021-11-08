@@ -4,6 +4,7 @@ Module contains BaseModel class
 """
 import uuid
 import datetime
+import models
 
 
 class BaseModel:
@@ -35,4 +36,3 @@ class BaseModel:
 
     def to_dict(self):
         pass
-    
