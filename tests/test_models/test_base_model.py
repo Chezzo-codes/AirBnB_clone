@@ -12,6 +12,8 @@ class TestBaseModel(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.baseClass = BaseModel()
+        cls.baseClass.name = "Mitali"
+        cls.baseClass.my_num = 2323
 
     @classmethod
     def tearDownClass(cls):
@@ -38,10 +40,10 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(self.baseClass.created_at, self.baseClass.updated_at)
 
     def test_to_dict(self):
-        base12_dict = self.base12.to_dict()
-        self.assertEqual(self.base12.__class__.__name__, 'BaseModel')
-        self.assertIsInstance(base12_dict['created_at'], str)
-        self.assertIsInstance(base12_dict['updated_at'], str)
+        baseClass_dict = self.baseClass.to_dict()
+        self.assertEqual(self.baseClass.__class__.__name__, 'BaseModel')
+        self.assertIsInstance(baseClass_dict['created_at'], str)
+        self.assertIsInstance(baseClass_dict['updated_at'], str)
 
 if __name__ == "__main__":
     unittest.main()
