@@ -14,14 +14,14 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """
-        Creates a new instance of BaseModel,
-        saves it (to the JSON file) and prints the id.
+        Create command to create a new instance of Airbnb models
+        Usage: Create <ClassName>
         """
         if args == None:
             print("** class name missing **")
         else:
             try:
-                args = arg.split(" ")
+                arg = args.split(" ")
                 new_inst = eval("{}()".format(args[0]))
                 new_inst.save()
                 print(new_inst.id)
