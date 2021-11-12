@@ -11,6 +11,23 @@ class HBNBCommand(cmd.Cmd):
     class HBNBCommand that inherits from Cmd class
     """
     prompt = "(hbnb)"
+
+    def do_create(self, args):
+        """
+        Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id.
+        """
+        if args == None:
+            print("** class name missing **")
+        else:
+            try:
+                args = arg.split(" ")
+                new_inst = eval("{}()".format(args[0]))
+                new_inst.save()
+                print(new_inst.id)
+            except Exception:
+                print("** class doesn't exist **")
+
     def do_quit(self, args):
         """
         Quit command exits out of the command interpreter
