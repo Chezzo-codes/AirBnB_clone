@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """
         Show string representation of an instance.
-        Usage: Show <ClassName>
+        Usage: Show <ClassName> <obj_id>
         """
         pass
 
