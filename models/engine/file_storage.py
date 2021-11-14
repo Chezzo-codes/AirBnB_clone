@@ -6,6 +6,7 @@ for serialization and deserialization of data.
 """
 import json
 import models
+from models.base_model import BaseModel
 
 
 class FileStorage:
