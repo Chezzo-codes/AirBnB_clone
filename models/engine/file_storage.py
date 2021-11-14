@@ -7,14 +7,14 @@ for serialization and deserialization of data.
 import json
 import models
 from models.base_model import BaseModel
-
+from os import path
 
 class FileStorage:
     """
     This class serializes instances to a JSON file and
     deserializes JSON file to instances
     """
-    __file_path = "file.json"
+    __file_path = "objects.json"
     __objects = {}
 
     def all(self):
@@ -29,31 +29,27 @@ class FileStorage:
         Public instance method that
         sets in __objects with key id
         """
-        if obj:
-            self.__objects["{}.{}".format(str(type(obj).__name__),
-                                          obj.id)] = obj
+        key = obj.__class__.__name__ + '.' + obj.id
+        self.__objects[key] = obj
 
     def save(self):
         """
         Public instance that serializes __objects
         to the JSON file
         """
-        dic = {}
-        for id, objs in self.__objects.items():
-            dic[id] = objs.to_dict()
-        with open(self.__file_path, mode="w", encoding="UTF-8") as myfile:
-            json.dump(dic, myfile)
+        json_dict = {}
+        for k, v in self.__objects.items():
+            json_dict[k] = v.to_dict()
+        with open(self.__file_path, mode='w', encoding='utf-8') as f:
+            f.write(json.dumps(json_dict))
 
     def reload(self):
         """
         Public instance method to deserialize the JSON file
         to __objects only if file exists
         """
-        try:
-            with open(self.__file_path, encoding="UTF-8") as myfile:
-                obj = json.load(myfile)
-            for key, value in obj.items():
-                name = models.allclasses[value["__class__"]](**value)
-                self.__objects[key] = name
-        except FileNotFoundError:
-            pass
+        if path.exists(self.__file_path):
+            with open(self.__file_path, mode='r', encoding='utf-8') as f:
+                json_dict = json.loads(f.read())
+                for k, v in json_dict.items():
+                    self.__objects[k] = eval(v['__class__'])(**v)

@@ -29,12 +29,26 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def do_show(self, arg):
+    def do_show(self, args):
         """
         Show string representation of an instance.
         Usage: Show <ClassName> <obj_id>
         """
-        pass
+        _class = self.parseline(args)[0]
+        _id = self.parseline(args)[1]
+
+        if _class is None:
+            print('** class name missing **')
+        elif _class not in self.classes:
+            print("** class doesn't exist **")
+        elif _id == '':
+            print('** instance id missing **')
+        else:
+            inst_data = models.storage.all().get(_class + '.' + _id)
+            if inst_data is None:
+                print('** no instance found **')
+            else:
+                print(str(inst_data))
 
     def do_create(self, arg):
         """
