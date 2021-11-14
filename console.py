@@ -4,29 +4,52 @@ Module contains command line interpreter
 for managing Airbnb
 """
 import cmd
+from models import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
     """
     class HBNBCommand that inherits from Cmd class
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
+
+    def do_all(self, arg):
+        """
+        All command to Prints all string representation of all instances
+        based or not on the class name.
+        Usage: all <Class_Name>  OR  all
+        """
+        pass
+
+    def do_destroy(self, arg):
+        """
+        Destroy command to Deletes an instance based on the class name and id
+        Usage: destroy <Class_Name> <obj_id>
+        """
+        pass
+
+    def do_show(self, args):
+        """
+        Show string representation of an instance.
+        Usage: Show <ClassName>
+        """
+        pass
 
     def do_create(self, args):
         """
         Create command to create a new instance of Airbnb models
         Usage: Create <ClassName>
         """
-        if args == None:
+        if not args:
             print("** class name missing **")
+            return
+        tokens = args.split(" ")
+        if tokens[0] in self.classes:
+            new = eval("{}()".format(tokens[0]))
+            new.save()
+            print("{}".format(new.id))
         else:
-            try:
-                arg = args.split(" ")
-                new_inst = eval("{}()".format(args[0]))
-                new_inst.save()
-                print(new_inst.id)
-            except Exception:
-                print("** class doesn't exist **")
+            print("** class doesn't exist **")
 
     def do_quit(self, args):
         """
